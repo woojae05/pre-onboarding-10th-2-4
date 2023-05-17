@@ -3,8 +3,13 @@ import { useCallback, useEffect, useState } from "react";
 
 import { createTodo } from "../api/todo";
 import useFocus from "../hooks/useFocus";
+import React from "react";
+import { Todo } from "types/todo.type";
 
-const InputTodo = ({ setTodos }) => {
+type InputTodoProps = {
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+};
+const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { ref, setFocus } = useFocus();
@@ -14,7 +19,7 @@ const InputTodo = ({ setTodos }) => {
   }, [setFocus]);
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       try {
         e.preventDefault();
         setIsLoading(true);
@@ -38,7 +43,7 @@ const InputTodo = ({ setTodos }) => {
         setIsLoading(false);
       }
     },
-    [inputText, setTodos],
+    [inputText, setTodos]
   );
 
   return (
