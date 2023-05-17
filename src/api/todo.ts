@@ -1,4 +1,5 @@
 import apiRequest from "./index";
+import { Todo } from "types/todo.type";
 
 const RESOURCE = "/todos";
 
@@ -12,9 +13,9 @@ export const getTodoList = async () => {
   }
 };
 
-export const createTodo = async (data) => {
+export const createTodo = async ({ title }: Pick<Todo, "title">) => {
   try {
-    const response = await apiRequest.post(`${RESOURCE}`, data);
+    const response = await apiRequest.post(`${RESOURCE}`, { title });
 
     return response;
   } catch (error) {
@@ -22,7 +23,7 @@ export const createTodo = async (data) => {
   }
 };
 
-export const deleteTodo = async (id) => {
+export const deleteTodo = async (id: number) => {
   try {
     const response = await apiRequest.delete(`${RESOURCE}/${id}`);
 
